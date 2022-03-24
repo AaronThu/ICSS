@@ -216,9 +216,7 @@ public class ASTListener extends ICSSBaseListener {
 	@Override
 	public void enterIfStatement(ICSSParser.IfStatementContext ctx) {
 		ASTNode ifStatement = new IfClause();
-		if(ifStatement != null) {
 			currentContainer.push(ifStatement);
-		}
 	}
 
 	@Override
