@@ -8,16 +8,12 @@ public class HANLinkedList<T> implements IHANLinkedList<T> {
     public void addFirst(T value) {
         if(firstNode == null) {
             firstNode = new HANLinkedListNode<>(value);
-
         }
         else{
             HANLinkedListNode<T> newNode = new HANLinkedListNode<>(value);
             newNode.setNextNode(firstNode);
             firstNode = newNode;
         }
-
-//        System.out.print(value);
-
     }
 
     @Override
