@@ -47,23 +47,23 @@ public class Checker {
 
         switch(propertyName){
             case("width"):
-                if(expression != ExpressionType.PERCENTAGE || expression != ExpressionType.PIXEL){
-                    astNode.setError("Width can only be in percentage or pixel literals" + astNode.toString());
+                if(expression != ExpressionType.PIXEL){
+                    astNode.setError("Width can only be in pixel literals");
                 }
                 break;
             case("height"):
-                if(expression != ExpressionType.PERCENTAGE || expression != ExpressionType.PIXEL){
-                    astNode.setError("Height can only be in percentage or pixel literals" + astNode.toString());
+                if(expression != ExpressionType.PIXEL){
+                    astNode.setError("Height can only be in  pixel literals");
                 }
                 break;
             case("color"):
                 if(expression != ExpressionType.COLOR){
-                    astNode.setError("Color can only be in percentage or pixel literals" + astNode.toString());
+                    astNode.setError("Color can only be in color literals");
                 }
                 break;
             case("background-color"):
                 if(expression != ExpressionType.COLOR){
-                    astNode.setError("Background-color can only be in percentage or pixel literals" + astNode.toString());
+                    astNode.setError("Background-color can only be in color literals");
                 }
                 break;
         }
@@ -85,8 +85,15 @@ public class Checker {
         if(expression instanceof Operation){
             return checkOperation(expression);
         }
+        if(expression instanceof VariableReference){
+            return checkVariableReference(expression);
+        }
 
         return ExpressionType.UNDEFINED;
+    }
+
+    private ExpressionType checkVariableReference(Expression expression) {
+        System.out.println(expression.toString());
     }
 
     private ExpressionType checkOperation(Expression expression) {
