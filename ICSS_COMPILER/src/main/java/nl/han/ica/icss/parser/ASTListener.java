@@ -44,7 +44,7 @@ public class ASTListener extends ICSSBaseListener {
 	@Override
 	public void enterStyleRule(ICSSParser.StyleRuleContext ctx) {
 		ASTNode styleRule = new Stylerule();
-		System.out.println(styleRule.toString());
+//		System.out.println(styleRule.toString());
 		currentContainer.push(styleRule);
 	}
 
@@ -52,7 +52,7 @@ public class ASTListener extends ICSSBaseListener {
 	public void exitStyleRule(ICSSParser.StyleRuleContext ctx) {
 		ASTNode styleRule = currentContainer.pop();
 		currentContainer.peek().addChild(styleRule);
-		System.out.println(styleRule.toString());
+//		System.out.println(styleRule.toString());
 	}
 
 	@Override
@@ -216,7 +216,9 @@ public class ASTListener extends ICSSBaseListener {
 	@Override
 	public void enterIfStatement(ICSSParser.IfStatementContext ctx) {
 		ASTNode ifStatement = new IfClause();
-		currentContainer.push(ifStatement);
+		if(ifStatement != null) {
+			currentContainer.push(ifStatement);
+		}
 	}
 
 	@Override

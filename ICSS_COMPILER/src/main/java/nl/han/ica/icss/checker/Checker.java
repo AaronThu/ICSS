@@ -15,14 +15,15 @@ public class Checker {
     private IHANLinkedList<HashMap<String, ExpressionType>> variableTypes;
 
     public void check(AST ast) {
-         variableTypes = new HANLinkedList<>();
+        variableTypes = new HANLinkedList<>();
+        checkNode(ast.root);
+
     }
 
 
-    public void checkNode(ASTNode astNode){
-            
-        }
-    }
+    public void checkNode(ASTNode astNode) {
 
+    }
+}
     
 
