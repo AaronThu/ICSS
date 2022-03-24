@@ -52,13 +52,16 @@ variableName: CAPITAL_IDENT;
 //STYLEBODY
 selector: classSelector | idSelector | tagSelector;// voorbeeld: p {
 styleBody: declaration+; // gehele body
-declaration: property COLON expressionType+ SEMICOLON; //declaratie vb: background-color: #ffffff;
+declaration: property COLON expressionType+ SEMICOLON | ifStatement+; //declaratie vb: background-color: #ffffff;
 
 //STYLERULE
 styleRule: selector OPEN_BRACE styleBody CLOSE_BRACE; // de opsomming van alle componenten in de stylebody
 
 //EXPRESSION
-expressionType: value | expressionType (MUL) expressionType | expressionType (PLUS | MIN) expressionType;
+expressionType: value | expressionType (MUL) expressionType | expressionType (PLUS | MIN) expressionType ;
+
+//IF/ELSE
+ifStatement: IF BOX_BRACKET_OPEN variableName BOX_BRACKET_CLOSE OPEN_BRACE declaration+ CLOSE_BRACE;
 
 //SELECTORS
 classSelector: CLASS_IDENT;
