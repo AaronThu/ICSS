@@ -61,8 +61,8 @@ styleRule: selector OPEN_BRACE styleBody CLOSE_BRACE; // de opsomming van alle c
 expressionType: value | expressionType (MUL) expressionType | expressionType (PLUS | MIN) expressionType ;
 
 //IF/ELSE
-ifStatement: IF BOX_BRACKET_OPEN variableName BOX_BRACKET_CLOSE OPEN_BRACE declaration+ CLOSE_BRACE;
-
+ifStatement: IF BOX_BRACKET_OPEN variableName BOX_BRACKET_CLOSE OPEN_BRACE declaration+ CLOSE_BRACE elseStatement*;
+elseStatement: ELSE OPEN_BRACE declaration+ CLOSE_BRACE;
 //SELECTORS
 classSelector: CLASS_IDENT;
 idSelector: ID_IDENT;
