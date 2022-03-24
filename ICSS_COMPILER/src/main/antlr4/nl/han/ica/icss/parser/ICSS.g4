@@ -73,9 +73,10 @@ value: allLiterals | variableName;  // de waarde die tot de property behoort
 property: LOWER_IDENT; // de property die een waarde krijgt vb: background-color:
 
 //LITERALS
-allLiterals: colorLiteral | pixelLiteral | booleanLiteral | scalarLiteral | variableName; // alle literals die value een waarde geven
+allLiterals: colorLiteral | pixelLiteral | booleanLiteral | scalarLiteral | percentageLiteral|variableName; // alle literals die value een waarde geven
 scalarLiteral: SCALAR;
 colorLiteral: COLOR;
 booleanLiteral: TRUE | FALSE;
 pixelLiteral: PIXELSIZE;
+percentageLiteral: PERCENTAGE;
 

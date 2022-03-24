@@ -24,7 +24,7 @@ public class Checker {
         for (ASTNode childNode : astNode.getChildren()){
 
             if(childNode instanceof VariableAssignment){
-                checkerVariableAssignment(childNode);
+                //checkerVariableAssignment(childNode);
             }
             if(childNode instanceof Stylerule){
                 checkerStyleRule(childNode);
@@ -90,15 +90,7 @@ public class Checker {
     }
 
     private ExpressionType checkOperation(Expression expression) {
-        Operation operation = (Operation) expression;
-
-        System.out.println(operation.lhs.toString());
-        System.out.println(operation.rhs.toString());
-return null;
-    }
-
-
-    private void checkerVariableAssignment(ASTNode childNode) {
+        return null;
     }
 
 }
