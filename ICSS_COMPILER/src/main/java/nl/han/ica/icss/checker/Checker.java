@@ -4,6 +4,7 @@ import nl.han.ica.datastructures.HANLinkedList;
 import nl.han.ica.datastructures.IHANLinkedList;
 import nl.han.ica.icss.ast.AST;
 import nl.han.ica.icss.ast.ASTNode;
+import nl.han.ica.icss.ast.VariableAssignment;
 import nl.han.ica.icss.ast.VariableReference;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
@@ -19,10 +20,9 @@ public class Checker {
 
 
     public void checkNode(ASTNode astNode){
-        if(astNode instanceof VariableReference){
             
         }
     }
 
     
-}
+

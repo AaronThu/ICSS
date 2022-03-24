@@ -189,12 +189,28 @@ public class ASTListener extends ICSSBaseListener {
 
 	@Override
 	public void enterExpressionType(ICSSParser.ExpressionTypeContext ctx) {
-
+		if(ctx.getChildCount() == 3){
+			Operation operation;
+			switch(ctx.getChild(1).getText()){
+				case "*":
+					operation = new MultiplyOperation();
+					break;
+				case "-":
+					operation = new SubtractOperation();
+					break;
+				default:
+					operation = new AddOperation();
+			}
+			currentContainer.push(operation);
+		}
 	}
 
 	@Override
 	public void exitExpressionType(ICSSParser.ExpressionTypeContext ctx) {
-
+		if(ctx.PLUS() != null || ctx.MIN() != null || ctx.MUL() != null){
+			ASTNode operation = currentContainer.pop();
+			currentContainer.peek().addChild(operation);
+		}
 	}
 
 	public AST getAST() {
