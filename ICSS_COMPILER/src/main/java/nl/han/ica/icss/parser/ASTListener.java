@@ -213,6 +213,30 @@ public class ASTListener extends ICSSBaseListener {
 		}
 	}
 
+	@Override
+	public void enterIfStatement(ICSSParser.IfStatementContext ctx) {
+		ASTNode ifStatement = new IfClause();
+		currentContainer.push(ifStatement);
+	}
+
+	@Override
+	public void exitIfStatement(ICSSParser.IfStatementContext ctx) {
+		ASTNode ifStatement = currentContainer.pop();
+		currentContainer.peek().addChild(ifStatement);
+	}
+
+	@Override
+	public void enterElseStatement(ICSSParser.ElseStatementContext ctx) {
+		ASTNode elseStatement = new ElseClause();
+		currentContainer.push(elseStatement);
+	}
+
+	@Override
+	public void exitElseStatement(ICSSParser.ElseStatementContext ctx) {
+		ASTNode elseStatement = currentContainer.pop();
+		currentContainer.peek().addChild(elseStatement);
+	}
+
 	public AST getAST() {
 		return ast;
 	}
