@@ -10,6 +10,7 @@ import nl.han.ica.icss.ast.literals.ScalarLiteral;
 import nl.han.ica.icss.ast.operations.AddOperation;
 import nl.han.ica.icss.ast.operations.MultiplyOperation;
 import nl.han.ica.icss.ast.operations.SubtractOperation;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class Evaluator implements Transform {
     }
 
     private void transformStyleSheet(Stylesheet stylesheet){
+        ArrayList<ASTNode> nodesToRemove = new ArrayList<>();
 
         variableValues.push();
 
@@ -36,7 +38,19 @@ public class Evaluator implements Transform {
             if(childNode instanceof Stylerule){
                 transformStyleRule((Stylerule) childNode);
             }
+            if(childNode instanceof VariableAssignment){
+                transformVariableAssignment((VariableAssignment) childNode);
+                nodesToRemove.add(childNode);
+            }
         }
+        variableValues.pop();
+        nodesToRemove.forEach(stylesheet::removeChild);
+    }
+
+    private void transformVariableAssignment(VariableAssignment variableAssignment) {
+        Expression expression = variableAssignment.expression;
+        Literal literal = transformExpression(expression);
+        variableValues.put(variableAssignment.name.name, literal);
     }
 
     private void transformStyleRule(Stylerule stylerule){
@@ -46,12 +60,18 @@ public class Evaluator implements Transform {
         for(ASTNode childNode: stylerule.body){
             transformStyleBody(childNode, astNodesToAdd);
         }
+
+        variableValues.pop();
+        stylerule.body = astNodesToAdd;
     }
 
     private void transformStyleBody(ASTNode astNode, ArrayList<ASTNode> parent) {
         if(astNode instanceof Declaration){
             transformDeclaration((Declaration) astNode);
             parent.add(astNode);
+        }
+        if(astNode instanceof VariableAssignment){
+            transformVariableAssignment((VariableAssignment) astNode);
         }
     }
 
@@ -63,7 +83,6 @@ public class Evaluator implements Transform {
         if(expression instanceof VariableReference){
             return variableValues.getVariableByKey((((VariableReference) expression).name));
         }
-        System.out.println(expression);
         return (Literal) expression;
     }
 

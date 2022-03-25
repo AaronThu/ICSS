@@ -26,6 +26,7 @@ public class Generator {
 			if(childNode instanceof Stylerule){
 				generateSelector(childNode);
 				generateDeclaration(childNode);
+				sb.append("}\n");
 			}
 		}
 	}
