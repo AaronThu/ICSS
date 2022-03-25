@@ -3,28 +3,28 @@ package nl.han.ica.datastructures;
 import java.util.HashMap;
 
 public class ScopeChecker<K, V>{
-    private IHANLinkedList<HashMap<K,V>> hashes;
+    private IHANLinkedList<HashMap<K,V>> allScopes;
 
     public ScopeChecker(){
-        this.hashes = new HANLinkedList<>();
+        this.allScopes = new HANLinkedList<>();
     }
 
     public void push(){
-        hashes.addFirst(new HashMap<>());
+        allScopes.addFirst(new HashMap<>());
     }
 
     public void pop(){
-        hashes.removeFirst();
+        allScopes.removeFirst();
     }
 
     public void put(K key, V value){
-        hashes.getFirst().put(key,value);
+        allScopes.getFirst().put(key,value);
     }
 
     public V getVariableByKey(K key){
-        for(int i = 0; i < hashes.getSize(); i++){
-            if(hashes.get(i) != null){
-                V variable = hashes.get(i).get(key);
+        for(int i = 0; i < allScopes.getSize(); i++){
+            if(allScopes.get(i) != null){
+                V variable = allScopes.get(i).get(key);
                 return variable;
             }
         }
