@@ -43,13 +43,14 @@ public class CheckerExpression {
     }
 
     public ExpressionType checkOperation(Operation operation){
-            ExpressionType leftExpressionType;
-            ExpressionType rightExpressionType;
+            ExpressionType leftExpressionType = checkExpressionType(operation.lhs);
+            ExpressionType rightExpressionType = checkExpressionType((operation.rhs));
 
-            if(operation.lhs instanceof Operation){
-                System.out.println(operation.lhs.toString());
+            if(leftExpressionType == ExpressionType.COLOR || rightExpressionType == ExpressionType.COLOR){
+                operation.setError("Operations must not include color literals.");
+                return null;
             }
-            return null;
+            return leftExpressionType;
         }
 
     }
