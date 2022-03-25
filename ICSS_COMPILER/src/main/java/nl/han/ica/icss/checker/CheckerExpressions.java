@@ -7,11 +7,11 @@ import nl.han.ica.icss.ast.literals.PercentageLiteral;
 import nl.han.ica.icss.ast.literals.PixelLiteral;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
-public class CheckerExpression {
+public class CheckerExpressions {
 
-    private CheckerVariable variableChecker;
+    private CheckerVariables variableChecker;
 
-    public CheckerExpression(CheckerVariable variableChecker){
+    public CheckerExpressions(CheckerVariables variableChecker){
     this.variableChecker = variableChecker;
     }
 

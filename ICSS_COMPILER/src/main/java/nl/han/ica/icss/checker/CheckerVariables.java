@@ -1,19 +1,19 @@
 package nl.han.ica.icss.checker;
 
-import nl.han.ica.datastructures.SymbolTable;
+import nl.han.ica.datastructures.ScopeMap;
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.VariableReference;
 import nl.han.ica.icss.ast.VariableAssignment;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
-public class CheckerVariable {
+public class CheckerVariables {
 
-    private SymbolTable<String, ExpressionType> variableTypes;
-    CheckerExpression expressionChecker;
+    private ScopeMap<String, ExpressionType> variableTypes;
+    CheckerExpressions expressionChecker;
 
-    public CheckerVariable(SymbolTable<String, ExpressionType> variableTypes){
+    public CheckerVariables(ScopeMap<String, ExpressionType> variableTypes){
         this.variableTypes = variableTypes;
-        this.expressionChecker = new CheckerExpression(this);
+        this.expressionChecker = new CheckerExpressions(this);
     }
 
     public ExpressionType checkVariableReference(VariableReference reference) {

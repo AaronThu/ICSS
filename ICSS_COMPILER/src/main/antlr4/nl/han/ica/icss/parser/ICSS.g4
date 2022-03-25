@@ -49,13 +49,14 @@ stylesheet:  variables* styleRule* EOF;
 //VARIABLES
 variables: variableName ASSIGNMENT_OPERATOR value+ SEMICOLON;
 variableName: CAPITAL_IDENT;
+
 //STYLEBODY
-selector: classSelector | idSelector | tagSelector;// voorbeeld: p {
-styleBody: (declaration | ifStatement | variables)*; // gehele body
-declaration: property COLON expressionType+ SEMICOLON; //declaratie vb: background-color: #ffffff;
+selector: classSelector | idSelector | tagSelector;
+styleBody: (declaration | ifStatement | variables)*;
+declaration: property COLON expressionType+ SEMICOLON;
 
 //STYLERULE
-styleRule: selector OPEN_BRACE styleBody CLOSE_BRACE; // de opsomming van alle componenten in de stylebody
+styleRule: selector OPEN_BRACE styleBody CLOSE_BRACE;
 
 //EXPRESSION
 expressionType: value | expressionType (MUL) expressionType | expressionType (PLUS | MIN) expressionType ;
@@ -63,17 +64,18 @@ expressionType: value | expressionType (MUL) expressionType | expressionType (PL
 //IF/ELSE
 ifStatement: IF BOX_BRACKET_OPEN variableName BOX_BRACKET_CLOSE OPEN_BRACE styleBody CLOSE_BRACE elseStatement*;
 elseStatement: ELSE OPEN_BRACE styleBody CLOSE_BRACE;
+
 //SELECTORS
 classSelector: CLASS_IDENT;
 idSelector: ID_IDENT;
 tagSelector: LOWER_IDENT;
 
 //OTHER
-value: allLiterals | variableName;  // de waarde die tot de property behoort
-property: LOWER_IDENT; // de property die een waarde krijgt vb: background-color:
+value: allLiterals | variableName;
+property: LOWER_IDENT;
 
 //LITERALS
-allLiterals: colorLiteral | pixelLiteral | booleanLiteral | scalarLiteral | percentageLiteral|variableName; // alle literals die value een waarde geven
+allLiterals: colorLiteral | pixelLiteral | booleanLiteral | scalarLiteral | percentageLiteral|variableName;
 scalarLiteral: SCALAR;
 colorLiteral: COLOR;
 booleanLiteral: TRUE | FALSE;

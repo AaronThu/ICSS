@@ -1,8 +1,6 @@
 package nl.han.ica.icss.transforms;
 
-import nl.han.ica.datastructures.HANLinkedList;
-import nl.han.ica.datastructures.IHANLinkedList;
-import nl.han.ica.datastructures.SymbolTable;
+import nl.han.ica.datastructures.ScopeMap;
 import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.literals.BoolLiteral;
 import nl.han.ica.icss.ast.literals.PercentageLiteral;
@@ -11,18 +9,15 @@ import nl.han.ica.icss.ast.literals.ScalarLiteral;
 import nl.han.ica.icss.ast.operations.AddOperation;
 import nl.han.ica.icss.ast.operations.MultiplyOperation;
 import nl.han.ica.icss.ast.operations.SubtractOperation;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 
 public class Evaluator implements Transform {
 
-    private SymbolTable<String, Literal> variableValues;
+    private ScopeMap<String, Literal> variableValues;
 
     public Evaluator() {
-        variableValues = new SymbolTable<>();
+        variableValues = new ScopeMap<>();
     }
 
     @Override
@@ -108,13 +103,13 @@ public class Evaluator implements Transform {
         }
 
         if(expression instanceof Operation){
-            return transformOperation((Operation) expression);
+            return transformOperationToLiteral((Operation) expression);
         }
 
         return (Literal) expression;
     }
 
-    private Literal transformOperation (Operation operation){
+    private Literal transformOperationToLiteral(Operation operation){
         Literal r;
         Literal l;
 
@@ -122,14 +117,14 @@ public class Evaluator implements Transform {
         int valueLeft;
 
         if(operation.lhs instanceof Operation){
-            l = transformOperation((Operation) operation.lhs);
+            l = transformOperationToLiteral((Operation) operation.lhs);
         } else if( operation.lhs instanceof VariableReference){
             l = variableValues.getVariableByKey(((VariableReference) operation.lhs).name);
         } else{
             l = (Literal) operation.lhs;
         }
         if(operation.rhs instanceof Operation){
-            r = transformOperation((Operation) operation.rhs);
+            r = transformOperationToLiteral((Operation) operation.rhs);
         } else if( operation.rhs instanceof VariableReference){
             r = variableValues.getVariableByKey(((VariableReference) operation.rhs).name);
         } else{
