@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Checker {
 
 //    private IHANLinkedList<HashMap<String, ExpressionType>> variableTypes;
-        private  HashChecker<String, ExpressionType> variableTypes;
+        private HashChecker<String, ExpressionType> variableTypes;
         private CheckerExpression expressionChecker;
         private CheckerVariable variableChecker;
 
@@ -20,10 +20,10 @@ public class Checker {
         }
 
     public void check(AST ast) {
-        checkerEntireStyleSheet(ast.root);
+        checkEntireStyleSheet(ast.root);
     }
 
-    private void checkerEntireStyleSheet(ASTNode astNode){
+    private void checkEntireStyleSheet(ASTNode astNode){
         Stylesheet stylesheet = (Stylesheet) astNode;
 
         variableTypes.pushHashes();
@@ -33,7 +33,9 @@ public class Checker {
                 continue;
             }
             if(childNode instanceof Stylerule){
-                checkerStyleRule(childNode);
+                variableTypes.pushHashes();
+                checkStyleRule(childNode);
+                variableTypes.popHashes();
             }
         }
         variableTypes.pushHashes();
@@ -41,7 +43,7 @@ public class Checker {
 
 
 
-    private void checkerStyleRule(ASTNode astNode) {
+    private void checkStyleRule(ASTNode astNode) {
         Stylerule styleRule = (Stylerule) astNode;
         checkStyleBody(styleRule.body);
     }
@@ -49,7 +51,7 @@ public class Checker {
     private void checkStyleBody(ArrayList<ASTNode> body) {
         for(ASTNode bodyChildNode : body){
             if(bodyChildNode instanceof Declaration){
-                checkerDeclaration(bodyChildNode);
+                checkDeclaration(bodyChildNode);
             }
             if(bodyChildNode instanceof VariableAssignment){
                 variableChecker.checkVariableAssignment(bodyChildNode);
@@ -57,7 +59,7 @@ public class Checker {
         }
     }
 
-    private void checkerDeclaration(ASTNode astNode) {
+    private void checkDeclaration(ASTNode astNode) {
         Declaration declaration = (Declaration) astNode;
         String propertyName = declaration.property.name;
         ExpressionType expression = expressionChecker.checkExpressionType(declaration.expression);
@@ -65,25 +67,21 @@ public class Checker {
             case("width"):
                 if(expression != ExpressionType.PIXEL){
                     astNode.setError("Width can only be in pixel literals");
-
                 }
                 break;
             case("height"):
                 if(expression != ExpressionType.PIXEL){
                     astNode.setError("Height can only be in  pixel literals");
-
                 }
                 break;
             case("color"):
                 if(expression != ExpressionType.COLOR){
                     astNode.setError("Color can only be in color literals");
-
                 }
                 break;
             case("background-color"):
                 if(expression != ExpressionType.COLOR){
                     astNode.setError("Background-color can only be in color literals");
-
                 }
                 break;
         }
