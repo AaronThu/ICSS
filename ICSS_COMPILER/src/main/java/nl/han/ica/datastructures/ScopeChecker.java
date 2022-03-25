@@ -29,8 +29,8 @@ public class ScopeChecker<K, V>{
 
     public V getVariableByKey(K key){
         for(int i = 0; i < allScopes.getSize(); i++){
-            if(allScopes.get(i) != null){
                 V variable = allScopes.get(i).get(key);
+                if(variable != null){
                 return variable;
             }
         }

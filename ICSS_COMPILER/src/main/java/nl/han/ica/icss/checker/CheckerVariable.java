@@ -18,8 +18,6 @@ public class CheckerVariable {
     }
 
     public ExpressionType checkVariableReference(VariableReference reference) {
-
-        System.out.println("Var Ref reference: " + reference.name);
         ExpressionType expressionType = variableTypes.getVariableByKey((reference).name);
 
         if(expressionType == null){
@@ -38,7 +36,5 @@ public class CheckerVariable {
             astNode.setError("Variable has not been assigned, error in expression: " + expressionType);
         }
         variableTypes.put(variableReference.name, expressionType);
-        System.out.println("variable assignment put");
-        variableTypes.printAllScopes();
     }
 }

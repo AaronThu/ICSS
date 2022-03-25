@@ -26,8 +26,6 @@ public class Checker {
     private void checkEntireStyleSheet(ASTNode astNode){
         Stylesheet stylesheet = (Stylesheet) astNode;
         variableTypes.push();
-        System.out.println("After stylesheet push");
-        variableTypes.printAllScopes();
         for (ASTNode childNode : stylesheet.getChildren()){
             if(childNode instanceof VariableAssignment){
                 variableChecker.checkVariableAssignment(childNode);
@@ -55,6 +53,9 @@ public class Checker {
             }
             if(bodyChildNode instanceof VariableAssignment){
                 variableChecker.checkVariableAssignment(bodyChildNode);
+            }
+            if(bodyChildNode instanceof IfClause){
+                expressionChecker.checkIfClause(bodyChildNode);
             }
         }
     }
@@ -87,14 +88,6 @@ public class Checker {
         }
 
     }
-
-
-
-
-    private ExpressionType checkOperation(Expression expression) {
-        return null;
-    }
-
 }
     
 
