@@ -1,12 +1,10 @@
 package nl.han.ica.icss.checker;
 
-import nl.han.ica.datastructures.ScopeChecker;
 import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.literals.BoolLiteral;
 import nl.han.ica.icss.ast.literals.ColorLiteral;
 import nl.han.ica.icss.ast.literals.PercentageLiteral;
 import nl.han.ica.icss.ast.literals.PixelLiteral;
-import nl.han.ica.icss.ast.operations.AddOperation;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
 public class CheckerExpression {

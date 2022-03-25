@@ -2,10 +2,10 @@ package nl.han.ica.datastructures;
 
 import java.util.HashMap;
 
-public class ScopeChecker<K, V>{
+public class SymbolTable<K, V>{
     private IHANLinkedList<HashMap<K,V>> allScopes;
 
-    public ScopeChecker(){
+    public SymbolTable(){
         this.allScopes = new HANLinkedList<>();
     }
 

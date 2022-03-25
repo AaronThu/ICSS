@@ -1,6 +1,6 @@
 package nl.han.ica.icss.checker;
 
-import nl.han.ica.datastructures.ScopeChecker;
+import nl.han.ica.datastructures.SymbolTable;
 import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
@@ -9,13 +9,13 @@ import java.util.ArrayList;
 public class Checker {
 
 //    private IHANLinkedList<HashMap<String, ExpressionType>> variableTypes;
-        private ScopeChecker<String, ExpressionType> variableTypes;
+        private SymbolTable<String, ExpressionType> variableTypes;
         private CheckerExpression expressionChecker;
         private CheckerVariable variableChecker;
         private CheckerIfClause ifClauseChecker;
 
         public Checker(){
-            this.variableTypes = new ScopeChecker<>();
+            this.variableTypes = new SymbolTable<>();
             this.variableChecker = new CheckerVariable(variableTypes);
             this.expressionChecker = new CheckerExpression(variableChecker);
             this.ifClauseChecker = new CheckerIfClause(expressionChecker);
