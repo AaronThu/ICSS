@@ -15,7 +15,7 @@ public class CheckerIfClause {
 
     public ExpressionType checkIfClause(IfClause ifClause) {
         Expression ifClauseExpression = ifClause.getConditionalExpression();
-        ExpressionType expressionType = expressionChecker.checkExpressionType(ifClauseExpression);
+        ExpressionType expressionType = expressionChecker.checkIfExpressionIsTypeOrOperation(ifClauseExpression);
 
         if(expressionType != ExpressionType.BOOL){
             ifClause.setError("If clause " + ifClauseExpression.toString() + " must be boolean literal.");

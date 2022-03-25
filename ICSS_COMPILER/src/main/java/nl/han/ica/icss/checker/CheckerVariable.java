@@ -30,7 +30,7 @@ public class CheckerVariable {
     public void checkVariableAssignment(ASTNode astNode) {
         VariableAssignment variableAssignment = (VariableAssignment) astNode;
         VariableReference variableReference = variableAssignment.name;
-        ExpressionType expressionType = expressionChecker.checkExpressionType(variableAssignment.expression);
+        ExpressionType expressionType = expressionChecker.checkIfExpressionIsTypeOrOperation(variableAssignment.expression);
 
         if(expressionType == ExpressionType.UNDEFINED || expressionType == null){
             astNode.setError("Variable has not been assigned, error in expression: " + expressionType);

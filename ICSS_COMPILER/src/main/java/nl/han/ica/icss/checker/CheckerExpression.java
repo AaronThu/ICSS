@@ -6,6 +6,7 @@ import nl.han.ica.icss.ast.literals.BoolLiteral;
 import nl.han.ica.icss.ast.literals.ColorLiteral;
 import nl.han.ica.icss.ast.literals.PercentageLiteral;
 import nl.han.ica.icss.ast.literals.PixelLiteral;
+import nl.han.ica.icss.ast.operations.AddOperation;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
 public class CheckerExpression {
@@ -16,10 +17,20 @@ public class CheckerExpression {
     this.variableChecker = variableChecker;
     }
 
+    public ExpressionType checkIfExpressionIsTypeOrOperation(ASTNode astNode){
+        Expression expression = (Expression) astNode;
+
+        if(expression instanceof Operation){
+            return checkOperation((Operation) expression);
+        }
+
+        return checkExpressionType(expression);
+    }
+
+
     public ExpressionType checkExpressionType(Expression expression){
 
         if(expression instanceof Operation){
-            System.out.println(expression);
             checkOperation((Operation) expression);
         }
 

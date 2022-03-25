@@ -71,11 +71,11 @@ public class Checker {
     private void checkDeclaration(ASTNode astNode) {
         Declaration declaration = (Declaration) astNode;
         String propertyName = declaration.property.name;
-        ExpressionType expression = expressionChecker.checkExpressionType(declaration.expression);
+        ExpressionType expression = expressionChecker.checkIfExpressionIsTypeOrOperation(declaration.expression);
         switch(propertyName){
             case("width"):
                 if(expression != ExpressionType.PIXEL){
-                    astNode.setError("Width can only be in pixel literals");
+                    astNode.setError("Width can only be in pixel literals " + expression);
                 }
                 break;
             case("height"):
