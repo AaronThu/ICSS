@@ -8,6 +8,7 @@ import nl.han.ica.icss.ast.literals.PercentageLiteral;
 import nl.han.ica.icss.ast.literals.PixelLiteral;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Checker {
@@ -16,19 +17,30 @@ public class Checker {
 
     public void check(AST ast) {
         variableTypes = new HANLinkedList<>();
-//        checkNodes(ast.root);
         checkerEntireStyleSheet(ast.root);
     }
 
     private void checkerEntireStyleSheet(ASTNode astNode){
         for (ASTNode childNode : astNode.getChildren()){
-
             if(childNode instanceof VariableAssignment){
-                //checkerVariableAssignment(childNode);
+                checkVariableAssignment(childNode);
             }
             if(childNode instanceof Stylerule){
                 checkerStyleRule(childNode);
             }
+        }
+    }
+
+    private void checkVariableAssignment(ASTNode astNode) {
+        VariableAssignment assignment = (VariableAssignment) astNode;
+        Expression expression = assignment.expression;
+
+        if(expression instanceof ColorLiteral){
+            HashMap<String, ExpressionType> hashMap = new HashMap(); hashMap.put(astNode.getNodeLabel(), ExpressionType.COLOR);
+
+            System.out.println(astNode.getNodeLabel());
+            System.out.println(hashMap.toString());
+            variableTypes.addFirst(hashMap);
         }
     }
 
@@ -43,7 +55,7 @@ public class Checker {
     private void checkerDeclaration(ASTNode astNode) {
         Declaration declaration = (Declaration) astNode;
         String propertyName = declaration.property.name;
-        ExpressionType expression = checkExpressionType(declaration);
+        ExpressionType expression = checkExpressionType(astNode);
 
         switch(propertyName){
             case("width"):
@@ -70,7 +82,8 @@ public class Checker {
     }
 
 
-    private ExpressionType checkExpressionType(Declaration declaration){
+    private ExpressionType checkExpressionType(ASTNode astNode){
+        Declaration declaration = (Declaration) astNode;
         Expression expression = declaration.expression;
 
         if(expression instanceof ColorLiteral){
@@ -86,14 +99,18 @@ public class Checker {
             return checkOperation(expression);
         }
         if(expression instanceof VariableReference){
-            return checkVariableReference(expression);
-        }
+            return checkVariableReference(astNode);
 
+        }
         return ExpressionType.UNDEFINED;
     }
 
-    private ExpressionType checkVariableReference(Expression expression) {
-        System.out.println(expression.toString());
+    private ExpressionType checkVariableReference(ASTNode astNode) {
+        System.out.println(astNode.toString());
+
+        
+
+        return null;
     }
 
     private ExpressionType checkOperation(Expression expression) {
