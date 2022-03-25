@@ -2,6 +2,7 @@ package nl.han.ica.icss.checker;
 
 import nl.han.ica.datastructures.ScopeChecker;
 import nl.han.ica.icss.ast.ASTNode;
+import nl.han.ica.icss.ast.VariableReference;
 import nl.han.ica.icss.ast.VariableAssignment;
 import nl.han.ica.icss.ast.VariableReference;
 import nl.han.ica.icss.ast.types.ExpressionType;
@@ -17,6 +18,8 @@ public class CheckerVariable {
     }
 
     public ExpressionType checkVariableReference(VariableReference reference) {
+
+        System.out.println("Var Ref reference: " + reference.name);
         ExpressionType expressionType = variableTypes.getVariableByKey((reference).name);
 
         if(expressionType == null){
@@ -35,5 +38,7 @@ public class CheckerVariable {
             astNode.setError("Variable has not been assigned, error in expression: " + expressionType);
         }
         variableTypes.put(variableReference.name, expressionType);
+        System.out.println("variable assignment put");
+        variableTypes.printAllScopes();
     }
 }

@@ -12,30 +12,28 @@ import nl.han.ica.icss.ast.types.ExpressionType;
 public class CheckerExpression {
 
     private CheckerVariable variableChecker;
-    private ScopeChecker<String, ExpressionType> variableTypes;
 
     public CheckerExpression(CheckerVariable variableChecker){
     this.variableChecker = variableChecker;
     }
 
     public ExpressionType checkExpressionType(Expression expression){
-        if(expression instanceof ColorLiteral){
-            return ExpressionType.COLOR;
-        }
-        if(expression instanceof PercentageLiteral){
-            return ExpressionType.PERCENTAGE;
-        }
-        if(expression instanceof PixelLiteral){
-            return ExpressionType.PIXEL;
-        }
-//        if(expression instanceof Operation){
-//            return checker.checkOperation(expression);
-//        }
+
         if(expression instanceof VariableReference){
             return variableChecker.checkVariableReference((VariableReference) expression);
-        }
-        if(expression instanceof BoolLiteral){
-            return ExpressionType.BOOL;
+        } else {
+            if (expression instanceof ColorLiteral) {
+                return ExpressionType.COLOR;
+            }
+            if (expression instanceof PercentageLiteral) {
+                return ExpressionType.PERCENTAGE;
+            }
+            if (expression instanceof PixelLiteral) {
+                return ExpressionType.PIXEL;
+            }
+            if (expression instanceof BoolLiteral) {
+                return ExpressionType.BOOL;
+            }
         }
         return ExpressionType.UNDEFINED;
     }

@@ -21,6 +21,12 @@ public class ScopeChecker<K, V>{
         allScopes.getFirst().put(key,value);
     }
 
+    public void printAllScopes(){
+        for(int i = 0; i< allScopes.getSize(); i++) {
+            System.out.println(allScopes.get(i).toString());
+        }
+    }
+
     public V getVariableByKey(K key){
         for(int i = 0; i < allScopes.getSize(); i++){
             if(allScopes.get(i) != null){
@@ -28,8 +34,6 @@ public class ScopeChecker<K, V>{
                 return variable;
             }
         }
-
-
         return null;
     }
 }
