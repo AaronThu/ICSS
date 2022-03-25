@@ -59,7 +59,6 @@ public class Generator {
 
 	private void generateSelector(ASTNode rootNode) {
 		Stylerule stylerule = (Stylerule) rootNode;
-
 		List<String> allSelectors = stylerule.selectors.stream().map(ASTNode::toString).collect(Collectors.toList());
 
 		String selectorString = String.join("",allSelectors);

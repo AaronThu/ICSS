@@ -35,12 +35,12 @@ public class Evaluator implements Transform {
         variableValues.push();
 
         for(ASTNode childNode : stylesheet.getChildren()){
-            if(childNode instanceof Stylerule){
-                transformStyleRule((Stylerule) childNode);
-            }
             if(childNode instanceof VariableAssignment){
                 transformVariableAssignment((VariableAssignment) childNode);
                 nodesToRemove.add(childNode);
+            }
+            if(childNode instanceof Stylerule){
+                transformStyleRule((Stylerule) childNode);
             }
         }
         variableValues.pop();
@@ -66,13 +66,14 @@ public class Evaluator implements Transform {
     }
 
     private void transformStyleBody(ASTNode astNode, ArrayList<ASTNode> parent) {
+        if(astNode instanceof VariableAssignment){
+            transformVariableAssignment((VariableAssignment) astNode);
+        }
         if(astNode instanceof Declaration){
             transformDeclaration((Declaration) astNode);
             parent.add(astNode);
         }
-        if(astNode instanceof VariableAssignment){
-            transformVariableAssignment((VariableAssignment) astNode);
-        }
+
     }
 
     private void transformDeclaration(Declaration declaration){
@@ -81,7 +82,7 @@ public class Evaluator implements Transform {
 
     private Literal transformExpression(Expression expression) {
         if(expression instanceof VariableReference){
-            return variableValues.getVariableByKey((((VariableReference) expression).name));
+            return variableValues.getVariableByKey(((VariableReference) expression).name);
         }
         return (Literal) expression;
     }
