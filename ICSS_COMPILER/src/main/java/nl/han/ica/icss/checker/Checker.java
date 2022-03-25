@@ -12,11 +12,13 @@ public class Checker {
         private ScopeChecker<String, ExpressionType> variableTypes;
         private CheckerExpression expressionChecker;
         private CheckerVariable variableChecker;
+        private CheckerIfClause ifClauseChecker;
 
         public Checker(){
             this.variableTypes = new ScopeChecker<>();
             this.variableChecker = new CheckerVariable(variableTypes);
             this.expressionChecker = new CheckerExpression(variableChecker);
+            this.ifClauseChecker = new CheckerIfClause(expressionChecker);
         }
 
     public void check(AST ast) {
@@ -39,8 +41,6 @@ public class Checker {
         variableTypes.pop();
     }
 
-
-
     private void checkStyleRule(ASTNode astNode) {
         Stylerule styleRule = (Stylerule) astNode;
         checkStyleBody(styleRule.body);
@@ -55,9 +55,17 @@ public class Checker {
                 variableChecker.checkVariableAssignment(bodyChildNode);
             }
             if(bodyChildNode instanceof IfClause){
-                expressionChecker.checkIfClause(bodyChildNode);
+                checkIfClause(bodyChildNode);
             }
         }
+    }
+
+    private void checkIfClause(ASTNode astNode){
+            IfClause ifClause = (IfClause) astNode;
+            variableTypes.push();
+            ifClauseChecker.checkIfClause(ifClause);
+            checkStyleBody(ifClause.body);
+            variableTypes.pop();
     }
 
     private void checkDeclaration(ASTNode astNode) {

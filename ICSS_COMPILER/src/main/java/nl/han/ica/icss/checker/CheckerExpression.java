@@ -1,10 +1,7 @@
 package nl.han.ica.icss.checker;
 
 import nl.han.ica.datastructures.ScopeChecker;
-import nl.han.ica.icss.ast.ASTNode;
-import nl.han.ica.icss.ast.Expression;
-import nl.han.ica.icss.ast.IfClause;
-import nl.han.ica.icss.ast.VariableReference;
+import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.literals.BoolLiteral;
 import nl.han.ica.icss.ast.literals.ColorLiteral;
 import nl.han.ica.icss.ast.literals.PercentageLiteral;
@@ -20,6 +17,12 @@ public class CheckerExpression {
     }
 
     public ExpressionType checkExpressionType(Expression expression){
+
+        if(expression instanceof Operation){
+            System.out.println(expression);
+            checkOperation((Operation) expression);
+        }
+
         if(expression instanceof VariableReference){
             return variableChecker.checkVariableReference((VariableReference) expression);
         } else {
@@ -39,7 +42,16 @@ public class CheckerExpression {
         return ExpressionType.UNDEFINED;
     }
 
-    public void checkIfClause(ASTNode astNode) {
-        IfClause ifClause = (IfClause) astNode;
+    public ExpressionType checkOperation(Operation operation){
+            ExpressionType leftExpressionType;
+            ExpressionType rightExpressionType;
+
+            if(operation.lhs instanceof Operation){
+                System.out.println(operation.lhs.toString());
+            }
+            return null;
+        }
+
     }
-}
+
+
