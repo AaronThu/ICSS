@@ -1,6 +1,6 @@
 package nl.han.ica.icss.checker;
 
-import nl.han.ica.datastructures.HashChecker;
+import nl.han.ica.datastructures.ScopeChecker;
 import nl.han.ica.icss.ast.*;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class Checker {
 
 //    private IHANLinkedList<HashMap<String, ExpressionType>> variableTypes;
-        private HashChecker<String, ExpressionType> variableTypes;
+        private ScopeChecker<String, ExpressionType> variableTypes;
         private CheckerExpression expressionChecker;
         private CheckerVariable variableChecker;
 
         public Checker(){
-            this.variableTypes = new HashChecker<>();
+            this.variableTypes = new ScopeChecker<>();
             this.variableChecker = new CheckerVariable(variableTypes);
             this.expressionChecker = new CheckerExpression(variableChecker);
         }
@@ -25,20 +25,19 @@ public class Checker {
 
     private void checkEntireStyleSheet(ASTNode astNode){
         Stylesheet stylesheet = (Stylesheet) astNode;
+        variableTypes.push();
 
-        variableTypes.pushHashes();
         for (ASTNode childNode : stylesheet.getChildren()){
             if(childNode instanceof VariableAssignment){
                 variableChecker.checkVariableAssignment(childNode);
-                continue;
             }
             if(childNode instanceof Stylerule){
-                variableTypes.pushHashes();
+                variableTypes.push();
                 checkStyleRule(childNode);
-                variableTypes.popHashes();
+                variableTypes.pop();
             }
         }
-        variableTypes.pushHashes();
+        variableTypes.pop();
     }
 
 

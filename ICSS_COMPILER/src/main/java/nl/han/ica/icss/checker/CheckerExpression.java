@@ -1,20 +1,18 @@
 package nl.han.ica.icss.checker;
 
-import nl.han.ica.datastructures.HashChecker;
+import nl.han.ica.datastructures.ScopeChecker;
 import nl.han.ica.icss.ast.Expression;
-import nl.han.ica.icss.ast.Operation;
 import nl.han.ica.icss.ast.VariableReference;
 import nl.han.ica.icss.ast.literals.BoolLiteral;
 import nl.han.ica.icss.ast.literals.ColorLiteral;
 import nl.han.ica.icss.ast.literals.PercentageLiteral;
 import nl.han.ica.icss.ast.literals.PixelLiteral;
 import nl.han.ica.icss.ast.types.ExpressionType;
-import org.checkerframework.checker.units.qual.C;
 
 public class CheckerExpression {
 
     private CheckerVariable variableChecker;
-    private HashChecker<String, ExpressionType> variableTypes;
+    private ScopeChecker<String, ExpressionType> variableTypes;
 
     public CheckerExpression(CheckerVariable variableChecker){
     this.variableChecker = variableChecker;

@@ -2,18 +2,18 @@ package nl.han.ica.datastructures;
 
 import java.util.HashMap;
 
-public class HashChecker <K, V>{
+public class ScopeChecker<K, V>{
     private IHANLinkedList<HashMap<K,V>> hashes;
 
-    public HashChecker(){
+    public ScopeChecker(){
         this.hashes = new HANLinkedList<>();
     }
 
-    public void pushHashes(){
+    public void push(){
         hashes.addFirst(new HashMap<>());
     }
 
-    public void popHashes(){
+    public void pop(){
         hashes.removeFirst();
     }
 

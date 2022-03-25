@@ -1,21 +1,17 @@
 package nl.han.ica.icss.checker;
 
-import nl.han.ica.datastructures.HANLinkedList;
-import nl.han.ica.datastructures.HashChecker;
-import nl.han.ica.datastructures.IHANLinkedList;
+import nl.han.ica.datastructures.ScopeChecker;
 import nl.han.ica.icss.ast.ASTNode;
 import nl.han.ica.icss.ast.VariableAssignment;
 import nl.han.ica.icss.ast.VariableReference;
 import nl.han.ica.icss.ast.types.ExpressionType;
 
-import java.util.HashMap;
-
 public class CheckerVariable {
 
-    private  HashChecker<String, ExpressionType> variableTypes;
+    private ScopeChecker<String, ExpressionType> variableTypes;
     CheckerExpression expressionChecker;
 
-    public CheckerVariable(HashChecker<String, ExpressionType> variableTypes){
+    public CheckerVariable(ScopeChecker<String, ExpressionType> variableTypes){
         this.variableTypes = variableTypes;
         this.expressionChecker = new CheckerExpression(this);
     }
