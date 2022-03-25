@@ -51,7 +51,7 @@ variables: variableName ASSIGNMENT_OPERATOR value+ SEMICOLON;
 variableName: CAPITAL_IDENT;
 //STYLEBODY
 selector: classSelector | idSelector | tagSelector;// voorbeeld: p {
-styleBody: (declaration | ifStatement)*; // gehele body
+styleBody: (declaration | ifStatement | variables)*; // gehele body
 declaration: property COLON expressionType+ SEMICOLON; //declaratie vb: background-color: #ffffff;
 
 //STYLERULE
